@@ -6,7 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Text.Json;
 using WorldCities.Data;
+using Serilog;
 
 namespace WorldCities
 {
@@ -23,12 +25,14 @@ namespace WorldCities
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews()
-                .AddJsonOptions(options =>
-                {
-                    // indents the JSON output when true
+                .AddJsonOptions(options => {
+                    // set this option to TRUE to indent the JSON output
                     options.JsonSerializerOptions.WriteIndented = true;
-                    // can also set pascal case here with ...Jsonseropts."PropertyNamingPolicy" = null
+                    // set this option to NULL to use PascalCase instead of CamelCase (default)
+                    // options.JsonSerializerOptions.PropertyNamingPolicy = null;
                 });
+
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -93,6 +97,9 @@ namespace WorldCities
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            // Use the Serilog request logging middleware to log HTTP requests.
+            app.UseSerilogRequestLogging();
         }
     }
 }

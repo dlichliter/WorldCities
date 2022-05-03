@@ -11,6 +11,8 @@ using Serilog;
 using Serilog.Sinks.MSSqlServer.Sinks.MSSqlServer.Options;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace WorldCities
 {
@@ -18,6 +20,9 @@ namespace WorldCities
     {
         public static void Main(string[] args)
         {
+            // SendGrid implementation test
+            // Execute().Wait();
+
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json",
@@ -53,5 +58,21 @@ namespace WorldCities
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        /// <summary>
+        /// SendGrid implementation test
+        /// </summary>
+        static async Task Execute()
+        {
+            var apiKey = "PUT-YOUR-API-KEY-HERE";
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("test@example.com", "Example User");
+            var subject = "Sending with SendGrid is Fun";
+            var to = new EmailAddress("test@example.com", "Example User");
+            var plainTextContent = "and easy to do anywhere, even with C#";
+            var htmlContent = "<strong>and easy to do anywhere, even with C#</strong>";
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            var response = await client.SendEmailAsync(msg);
+        }
     }
 }

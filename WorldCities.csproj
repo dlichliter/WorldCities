@@ -15,6 +15,10 @@
 
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
+    <PackageReference Include="MailKit" Version="2.10.1" />
+    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
@@ -24,6 +28,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.0" />
+    <PackageReference Include="SendGrid" Version="9.21.2" />
     <PackageReference Include="Serilog.AspNetCore" Version="6.0.0-dev-00265" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.1-dev-00313" />
     <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="5.7.1-dev-00014" />
@@ -35,6 +40,12 @@
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Shared\_Layout.cshtml" />
+    <None Include="Pages\Shared\_LoginPartial.cshtml" />
+    <None Include="Pages\Shared\_ValidationScriptsPartial.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
